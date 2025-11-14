@@ -29,7 +29,7 @@ import (
 )
 
 // 300ms is the default fallback period for go's DNS dialer but we could make this configurable.
-var fallbackDelay = 300 * time.Millisecond
+var fallbackDelay = 30000 * time.Millisecond
 
 type Challenge struct {
 	Scheme string
