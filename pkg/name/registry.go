@@ -17,6 +17,7 @@ package name
 import (
 	"encoding"
 	"encoding/json"
+	"fmt"
 	"net"
 	"net/url"
 	"path"
@@ -39,10 +40,12 @@ type Registry struct {
 	registry string
 }
 
-var _ encoding.TextMarshaler = (*Registry)(nil)
-var _ encoding.TextUnmarshaler = (*Registry)(nil)
-var _ json.Marshaler = (*Registry)(nil)
-var _ json.Unmarshaler = (*Registry)(nil)
+var (
+	_ encoding.TextMarshaler   = (*Registry)(nil)
+	_ encoding.TextUnmarshaler = (*Registry)(nil)
+	_ json.Marshaler           = (*Registry)(nil)
+	_ json.Unmarshaler         = (*Registry)(nil)
+)
 
 // RegistryStr returns the registry component of the Registry.
 func (r Registry) RegistryStr() string {
@@ -64,9 +67,10 @@ func (r Registry) Repo(repo ...string) Repository {
 }
 
 // Scope returns the scope required to access the registry.
-func (r Registry) Scope(string) string {
+func (r Registry) Scope(action string) string {
 	// The only resource under 'registry' is 'catalog'. http://goo.gl/N9cN9Z
-	return "registry:catalog:*"
+	// return "registry:catalog:*"
+	return fmt.Sprintf("repository:catalog:%s", action)
 }
 
 func (r Registry) isRFC1918() bool {

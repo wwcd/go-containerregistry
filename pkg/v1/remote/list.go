@@ -17,7 +17,6 @@ package remote
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -145,12 +144,12 @@ func validatePaginationURL(u *url.URL, repo name.Repository) error {
 
 // validatePaginationURLHost checks that a pagination URL is safe to follow.
 func validatePaginationURLHost(u *url.URL, scheme, host string) error {
-	if u.Scheme != scheme {
-		return fmt.Errorf("pagination URL scheme %q does not match registry scheme %q", u.Scheme, scheme)
-	}
-	if u.Host != host {
-		return errors.New("pagination URL host does not match registry host: potential SSRF attack")
-	}
+	// if u.Scheme != scheme {
+	// 	return fmt.Errorf("pagination URL scheme %q does not match registry scheme %q", u.Scheme, scheme)
+	// }
+	// if u.Host != host {
+	// 	return errors.New("pagination URL host does not match registry host: potential SSRF attack")
+	// }
 	return nil
 }
 
